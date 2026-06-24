@@ -12,14 +12,16 @@ cd OpenBLAS
 git checkout tags/${OBLAS_VERSION}
 
 # Build 
-# -> NUM_PARALLEL=... default automatically detected (if set to $(nproc) test 105/105 fork:safety_after_fork_in_parent will fail!)
-# -> DYNAMIC_ARCH=1 DYNAMIC_OLDER=1 support for multiple (older) processor types on runtime in one ninary
-# -> NO_SHARED=1 disable generating shared library
-# -> PREFIX=... not required as automatically build in current folder
-# -> INTERFACE64=1 enable 64-bit interface (not supported by all compilers!)
-# -> BINARY=64 64-bit binary generation (seems to be set automatically if INTERFACE64=1)
-# -> Force usage of GNU-compiler
-make CC=gcc FC=gfortran INTERFACE64=0 NO_LAPACKE=1 NO_CBLAS=1 NO_SHARED=1 USE_OPENMP=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER=1
+# -> gfortran compilier required for LAPACK (UBUNTU: sudo apt-get install gfortran)
+
+# NUM_PARALLEL=... default automatically detected (if set to $(nproc) test 105/105 fork:safety_after_fork_in_parent will fail!)
+# DYNAMIC_ARCH=1 DYNAMIC_OLDER=1 support for multiple (older) processor types on runtime in one ninary
+# NO_SHARED=1 disable generating shared library
+# PREFIX=... not required as automatically build in current folder
+# INTERFACE64=1 enable 64-bit interface (not supported by all compilers!)
+# Force usage of GNU-compiler
+# NO_LAPACKE = 1 no c-interface is build (LAPACK itself is, however, build)
+make CC=gcc FC=gfortran INTERFACE64=1 NO_LAPACKE=1 NO_CBLAS=1 NO_SHARED=1 USE_OPENMP=1 DYNAMIC_ARCH=1 DYNAMIC_OLDER=1
 
 # Copy library files
 mkdir -p "${PREFIX}/lib"

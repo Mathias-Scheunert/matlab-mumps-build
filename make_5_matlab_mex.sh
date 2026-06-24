@@ -6,14 +6,19 @@ set -e
 : ${PREFIX:="${PWD}"}
 
 # Get path to matlab / mex
-MATLAB_BIN=$(which matlab)
-MATLAB_DIR=$(dirname "$MATLAB_BIN")
+MATLAB_ROOT=$(dirname $(dirname $(readlink -f $(which matlab))))
+export MATLAB_ROOT="$MATLAB_ROOT"
+MATLAB_MEX="$MATLAB_ROOT/bin/mex"
 
 # Build mex-files
 cd src/MUMPS_${MUMPS_VERSION}/MATLAB
 cp Makefile Makefile.bak
 cp ../../../Makefile_matlab ./Makefile
-make MEX="${MATLAB_DIR}/mex -largeArrayDims"
+# Replace inconsitant / outdated c file
+cp mumpsmex.c mumpsmex.c.bak
+cp ../../../mumpsmex_64.c mumpsmex.c
+#make MEX="${MATLAB_MEX} -largeArrayDims"
+make
 
 # Install
 mkdir -p "${PREFIX}/lib/matlab"
@@ -24,5 +29,10 @@ echo " "
 echo "running tests ..."
 echo " "
 cd /tmp
-export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libgfortran.so.5
+#export LD_LIBRARY_PATH=$MATLAB_ROOT/bin/glnxa64:$LD_LIBRARY_PATH
 MATLABPATH="${PREFIX}/lib/matlab:${MATLABPATH}" matlab -nojvm -batch 'simple_example; zsimple_example; schur_example; diagainv_example; multiplerhs_example; sparserhs_example; polyfit(1:10, sin(1:10), 2)'
+
+# checks:
+# ldd ${PREFIX}/lib/matlab/dmumpsmex.mexa64
+# -> list of dynamic linked libs *so must not contain metis, scotch, pord
+# no "...=> not found" should be visible

@@ -1,18 +1,21 @@
-MUMPS_DIR = $(PWD)/..
+BASE_DIR = $(PWD)/../../..
+MATLAB_ROOT := $(shell dirname $(shell dirname $(shell readlink -f $(shell which matlab))))
+MATLAB_MEX := $(MATLAB_ROOT)/bin/mex
 
-INCMUMPS = -I$(MUMPS_DIR)/include
-LIBMUMPS = -L$(MUMPS_DIR)/lib -l$(ARITH)mumps -lmumps_common -L$(MUMPS_DIR)/libseq -lmpiseq -lpord
+MATLAB_LIB = -L${MATLAB_ROOT}/bin/glnxa64 -lmx -lmex
+INCMUMPS = -I$(BASE_DIR)/include
+INC = $(INCMUMPS)
+
+# be aware with linking orders
+LIBMUMPS = -L$(BASE_DIR)/lib -l$(ARITH)mumps -lmumps_common -lmpiseq -lpord
 LIBFORT = -lgfortran
-INCLIBS = -L$(MUMPS_DIR)/../../include
-LIBBLAS = -L$(MUMPS_DIR)/../../lib -lopenblas
-LIBMETIS = -L$(MUMPS_DIR)/../../lib -lmetis
-LIBSCOTCH = -L$(MUMPS_DIR)/../../lib -lesmumps -lscotch -lscotcherr
+LIBBLAS = -L$(BASE_DIR)/lib -lopenblas
+LIBMETIS = -L$(BASE_DIR)/lib -lmetis
+LIBSCOTCH = -L$(BASE_DIR)/lib -lesmumps -lscotch -lscotcherr
+LIB = $(LIBMUMPS) $(LIBMETIS) $(LIBSCOTCH) $(LIBBLAS) $(LIBFORT) $(MATLAB_LIB)
 
-INC = $(INCMUMPS) $(INCLIBS)
-LIB = $(LIBMUMPS) $(LIBFORT) $(LIBBLAS) $(LIBMETIS) $(LIBSCOTCH)
-
-MEX = mex -largeArrayDims
-OPTC = -O CFLAGS='$$CFLAGS -fopenmp' LDFLAGS='$$LDFLAGS -fopenmp' 
+MEX = $(MATLAB_MEX) -largeArrayDims
+OPTC = -O -DINTSIZE64 CFLAGS='$$CFLAGS -fopenmp -DINTSIZE64' LDFLAGS='$$LDFLAGS -fopenmp' 
 
 # may required for gcc/gfortran >=10: FFLAGS='$FFLAGS -fallow-argument-mismatch -fallow-invalid-boz'
 
