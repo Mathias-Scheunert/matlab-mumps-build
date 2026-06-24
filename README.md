@@ -1,5 +1,8 @@
 Forked from: https://github.com/xmjiao/mumps4m-openmp and https://github.com/blechta/mumps-matlab-recipes \
-Original Authors: Xiangmin Jiao, Jan Blechta
+Original Authors: Xiangmin Jiao, Jan Blechta \
+Thanks to ChatGPT and Google-AI!
+
+Builds 64-bit MUMPS and statically links dependent libraries
 
 Recipe tested with Ubuntu 26.04 LTS, MATLAB 2026a
 - dependencies:\
