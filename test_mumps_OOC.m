@@ -41,6 +41,16 @@ B = sparse(B);
 %    simultaneously within parfor
 vwd2rep = reshape(repmat(1:n_A, n_rep / n_A, 1), [], 1);
 
+%% Default configuration
+
+% Create default solver for real and complex-valued problem.
+solver = MUMPS(A{1});
+d = solver.solve(B);
+%
+A_ = A{1} + 1i*A{1};
+solver = MUMPS(A_);
+z = solver.solve(B);
+
 %% Multiple matrices serial
 
 % Create solver.

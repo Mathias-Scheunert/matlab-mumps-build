@@ -7,14 +7,23 @@ set -e
 
 # Download and unpack
 mkdir -p src && cd src
-wget -c -O MUMPS_${MUMPS_VERSION}.tar.gz https://coin-or-tools.github.io/ThirdParty-Mumps/MUMPS_${MUMPS_VERSION}.tar.gz
-tar -xzf MUMPS_${MUMPS_VERSION}.tar.gz
+if [ ! -f "MUMPS_${MUMPS_VERSION}.tar.gz" ]; then
+    wget -c -O MUMPS_${MUMPS_VERSION}.tar.gz https://coin-or-tools.github.io/ThirdParty-Mumps/MUMPS_${MUMPS_VERSION}.tar.gz
+fi
+if [ ! -d "MUMPS_${MUMPS_VERSION}" ]; then
+    tar -xzf MUMPS_${MUMPS_VERSION}.tar.gz
+fi
 cd MUMPS_${MUMPS_VERSION}
 
 # Build MUMPS static lib
 cp ../../Makefile_mumps.inc Makefile.inc
-make d prefix=${PREFIX} openmp=1
-make z prefix=${PREFIX} openmp=1
+# -k || true ignores all errors
+make d openmp=1 -k || true
+make z openmp=1 -k || true
+
+# Move static libs abd header files to desired folders
+cp lib/*.a "${PREFIX}/lib/"
+cp include/*.h "${PREFIX}/include/"
 
 # Test
 cd examples

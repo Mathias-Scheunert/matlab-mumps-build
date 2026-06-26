@@ -28,26 +28,26 @@ LIBEXT  = .a
 OUTC    = -o
 OUTF    = -o
 RM = /bin/rm -f
+# -fPIC produces adress position independent code
 CC = gcc -fPIC
 FC = gfortran -fPIC 
-# -> -fallow-argument-mismatch -fallow-invalid-boz fixes https://github.com/coin-or-tools/ThirdParty-Mumps/issues/4 (only required for gcc/gfortran >= 10)
-# -> -fPIC produces adress position independent code
 FL = gfortran -fPIC
 AR = ar vr 
 RANLIB = ranlib
 
 LAPACK = -L$(topdir)/../lib/ -lopenblas
-
 LIBBLAS = -L$(topdir)/../lib/ -lopenblas
 LIBOTHERS = -lpthread
 
 INCSEQ = -I$(topdir)/libseq
+# libmpiseq linking for sequential build
 LIBSEQ  = $(LAPACK) -L$(topdir)/libseq/ -lmpiseq
 
 #Preprocessor defs for calling Fortran from C (-DAdd_ or -DAdd__ or -DUPPER)
 CDEFS   = -DAdd_
 
 #Begin Optimized options
+# -> -fallow-argument-mismatch -fallow-invalid-boz fixes https://github.com/coin-or-tools/ThirdParty-Mumps/issues/4 (only required for gcc/gfortran >= 10)
 OPTF    = -O3 -fopenmp -DBLR_MT -fallow-argument-mismatch
 OPTL    = -O3 -fopenmp -DBLR_MT
 OPTC    = -O3 -fopenmp -DBLR_MT
