@@ -2,7 +2,8 @@ Forked from: https://github.com/xmjiao/mumps4m-openmp and https://github.com/ble
 Original Authors: Xiangmin Jiao, Jan Blechta \
 Thanks to ChatGPT and Google-AI!
 
-Builds 32-bit MUMPS and statically links dependent libraries
+Builds 32-bit MUMPS and statically links dependent libraries \
+-> to get the 64-bit variant please checkout branch **mumps-64**
 
 Recipe tested with Ubuntu 24.04 LTS, MATLAB 2024b
 - dependencies:\
