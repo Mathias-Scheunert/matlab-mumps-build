@@ -91,6 +91,12 @@ classdef MUMPS_OOC < handle
             obj.id.ICNTL(22) = 1;
             obj.id.ICNTL(35) = 3;
 
+            % Force silent output
+            obj.id.ICNTL(1) = -1;
+            obj.id.ICNTL(2) = -1;
+            obj.id.ICNTL(3) = -1;
+            obj.id.ICNTL(4) = 0;
+
             % Factorize (symbolic and numeric)
             obj.id.JOB = 4; % analyse & factorize
             obj.id = obj.mumps(obj.id, obj.A);
@@ -233,8 +239,9 @@ end
 
 
 function s = update_struct(s, s_new)
-    % Remove fields in s_new from s and raise error if field not in s.
+    % Replace solver flags.
 
+    % Remove fields in s_new from s and raise error if field not in s
     s = rmfield(s, fieldnames(s_new));
 
     % Concatenate s and s_new
