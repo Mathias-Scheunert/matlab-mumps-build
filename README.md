@@ -38,4 +38,27 @@ factorization on multicore architectures,
 ACM Transactions on Mathematical Software,
 Vol 45, Issue 1, pp 2:1-2:26 (2019)
 
+## License
 
+Copyright (c) 2018, Jan Blechta (Original code)
+Copyright (c) 2026, Mathias Scheunert / TU Bergakademie Freiberg (Modifications and additions)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://gnu.org>.
+
+---
+
+Portions of this software are based on code originally created by Jan Blechta
+under the BSD 2-Clause License:
+
+Copyright (c) 2018, Jan Blechta. All rights reserved.
