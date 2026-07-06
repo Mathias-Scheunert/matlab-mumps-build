@@ -1,6 +1,6 @@
 Forked from: https://github.com/xmjiao/mumps4m-openmp and https://github.com/blechta/mumps-matlab-recipes \
 Original Authors: Xiangmin Jiao, Jan Blechta \
-Thanks to ChatGPT and Google-AI!
+Code in this repository was generated and refined with the assistance of Google Gemini and OpenAI ChatGPT.
 
 Builds 32-bit MUMPS and statically links dependent libraries \
 -> to get the 64-bit variant please checkout branch **mumps-64**
@@ -10,7 +10,8 @@ Recipe tested with Ubuntu 24.04 LTS, MATLAB 2024b
 openblas 0.3.26 \
 mumps    5.6.2 \
 metis    5.1.0 \
-scotch   7.0.3
+scotch   7.0.3 \
+mumps    5.6.2
 
 - package requirements:
 bison flex zlib-dev gfortran
@@ -40,7 +41,7 @@ Vol 45, Issue 1, pp 2:1-2:26 (2019)
 
 ## License
 
-Copyright (c) 2018, Jan Blechta (Original code)
+Copyright (c) 2018, Jan Blechta (Original code) \
 Copyright (c) 2026, Mathias Scheunert / TU Bergakademie Freiberg (Modifications and additions)
 
 This program is free software: you can redistribute it and/or modify
